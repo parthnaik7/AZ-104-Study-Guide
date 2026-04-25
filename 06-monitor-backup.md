@@ -13,12 +13,12 @@ Azure Monitor is the central hub for collecting, analyzing, and acting on teleme
 ```mermaid
 graph TD
     subgraph Azure Monitor
-        subgraph Metrics [Metrics (Numbers)]
+        subgraph Metrics ["Metrics (Numbers)"]
             M1[CPU %]
             M2[Disk I/O]
             M3[Network Traffic]
         end
-        subgraph Logs [Logs (Text/Events)]
+        subgraph Logs ["Logs (Text/Events)"]
             L1[Event Viewer Logs]
             L2[Syslog]
             L3[App Exceptions]

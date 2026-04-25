@@ -37,16 +37,16 @@ The most critical prerequisite concept for AZ-104 is understanding how Microsoft
 
 ```mermaid
 graph TD
-    subgraph Geography [Geography: e.g., Americas]
-        subgraph Region [Region: e.g., East US]
-            subgraph AZ1 [Availability Zone 1]
+    subgraph Geography ["Geography: e.g., Americas"]
+        subgraph Region ["Region: e.g., East US"]
+            subgraph AZ1 ["Availability Zone 1"]
                 DC1[Data Center 1]
                 DC2[Data Center 2]
             end
-            subgraph AZ2 [Availability Zone 2]
+            subgraph AZ2 ["Availability Zone 2"]
                 DC3[Data Center 3]
             end
-            subgraph AZ3 [Availability Zone 3]
+            subgraph AZ3 ["Availability Zone 3"]
                 DC4[Data Center 4]
             end
         end

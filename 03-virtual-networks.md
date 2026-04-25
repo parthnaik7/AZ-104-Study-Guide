@@ -30,19 +30,19 @@ An ASG allows you to group VMs by their function (e.g., "WebServers" or "Databas
 
 ```mermaid
 graph TD
-    subgraph VNet [Virtual Network: 10.0.0.0/16]
-        subgraph Subnet [Subnet: 10.0.1.0/24]
+    subgraph VNet ["Virtual Network: 10.0.0.0/16"]
+        subgraph Subnet ["Subnet: 10.0.1.0/24"]
             NSG{Network Security Group<br>Rule: Allow Port 80 to ASG_Web}
             NSG --- VM1
             NSG --- VM2
             NSG --- VM3
             
-            subgraph ASG_Web [ASG: WebServers]
+            subgraph ASG_Web ["ASG: WebServers"]
                 VM1[Web VM 1]
                 VM2[Web VM 2]
             end
             
-            subgraph ASG_DB [ASG: DatabaseServers]
+            subgraph ASG_DB ["ASG: DatabaseServers"]
                 VM3[DB VM 1]
             end
         end

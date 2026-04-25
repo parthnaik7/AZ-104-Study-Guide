@@ -10,21 +10,21 @@ When you save a file in Azure, Microsoft automatically keeps multiple copies of 
 
 ```mermaid
 graph TD
-    subgraph Region A [Primary Region]
-        subgraph AZ1 [Availability Zone 1]
+    subgraph Region A ["Primary Region"]
+        subgraph AZ1 ["Availability Zone 1"]
             LRS1[(Copy 1)]
             LRS2[(Copy 2)]
             LRS3[(Copy 3)]
         end
-        subgraph AZ2 [Availability Zone 2]
+        subgraph AZ2 ["Availability Zone 2"]
             ZRS2[(Copy 2)]
         end
-        subgraph AZ3 [Availability Zone 3]
+        subgraph AZ3 ["Availability Zone 3"]
             ZRS3[(Copy 3)]
         end
     end
     
-    subgraph Region B [Secondary Paired Region]
+    subgraph Region B ["Secondary Paired Region"]
         GRS[(Async Copies)]
     end
     

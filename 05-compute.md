@@ -13,12 +13,12 @@ An Availability Set is a logical grouping of VMs *within the same datacenter*. I
 
 ```mermaid
 graph TD
-    subgraph Availability Set [Availability Set: WebServers]
-        subgraph Fault Domain 0 [Fault Domain 0: Rack 1]
+    subgraph Availability Set ["Availability Set: WebServers"]
+        subgraph Fault Domain 0 ["Fault Domain 0: Rack 1"]
             UD0[Update Domain 0: VM 1]
             UD2[Update Domain 2: VM 3]
         end
-        subgraph Fault Domain 1 [Fault Domain 1: Rack 2]
+        subgraph Fault Domain 1 ["Fault Domain 1: Rack 2"]
             UD1[Update Domain 1: VM 2]
             UD3[Update Domain 3: VM 4]
         end
