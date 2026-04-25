@@ -13,9 +13,9 @@ This exam is designed to help you prepare by testing your knowledge across all m
 
 ## Practice Exam Sections
 
-- [Domain 1: Manage Azure Identities and Governance (Questions 1 - 15)](PRACTICE-EXAM-DOMAIN-1.md)
-- [Domain 2: Implement and Manage Storage (Questions 16 - 25)](PRACTICE-EXAM-DOMAIN-2.md)
-- [Domain 3: Deploy and Manage Azure Compute Resources (Questions 26 - 45)](PRACTICE-EXAM-DOMAIN-3.md)
-- [Domain 4: Configure and Manage Virtual Networking (Questions 46 - 70)](PRACTICE-EXAM-DOMAIN-4.md)
-- [Domain 5: Monitor and Maintain Azure Resources (Questions 71 - 85)](PRACTICE-EXAM-DOMAIN-5.md)
-- [Domain 6: Advanced Scenarios - Automation, Cost, & Hybrid (Questions 86 - 100)](PRACTICE-EXAM-DOMAIN-6.md)
+- [Domain 1: Manage Azure Identities and Governance (Questions 1 - 15)](PRACTICE-EXAM-identity-and-governance.md)
+- [Domain 2: Implement and Manage Storage (Questions 16 - 25)](PRACTICE-EXAM-storage.md)
+- [Domain 3: Deploy and Manage Azure Compute Resources (Questions 26 - 45)](PRACTICE-EXAM-compute.md)
+- [Domain 4: Configure and Manage Virtual Networking (Questions 46 - 70)](PRACTICE-EXAM-virtual-networking.md)
+- [Domain 5: Monitor and Maintain Azure Resources (Questions 71 - 85)](PRACTICE-EXAM-monitor-and-maintain.md)
+- [Domain 6: Advanced Scenarios - Automation, Cost, & Hybrid (Questions 86 - 100)](PRACTICE-EXAM-advanced-scenarios.md)
