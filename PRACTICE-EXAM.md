@@ -1753,3 +1753,4 @@ If you were able to comfortably answer these scenarios and understand the *Why* 
 - **Monitoring/Backup:** Understand Log Analytics Workspaces, Action Groups, and Recovery Services Vault boundaries.
 
 Best of luck on your AZ-104 journey!
+a
