@@ -9,6 +9,7 @@ It’s designed to be a clean, readable reference for engineers learning Azure f
 ## 📘 Table of Contents
 
 - [📚 AZ-104 Learning Paths](#-az-104-learning-paths)
+- [💯 Practice Exam](#-practice-exam)
 - [🏛 What is a Tenant?](#-what-is-a-tenant)
 - [🔐 What is Microsoft Entra ID?](#-what-is-microsoft-entra-id)
 - [🧩 Azure Hierarchy Overview](#-azure-hierarchy-overview)
@@ -31,6 +32,12 @@ It’s designed to be a clean, readable reference for engineers learning Azure f
 - [04 - Implement and Manage Storage in Azure](./04-storage.md)
 - [05 - Deploy and Manage Azure Compute Resources](./05-compute.md)
 - [06 - Monitor and Backup Azure Resources](./06-monitor-backup.md)
+
+---
+
+## 💯 Practice Exam
+
+- [AZ-104 100-Question Scenario Practice Exam](./PRACTICE-EXAM.md) 
 
 ---
 
