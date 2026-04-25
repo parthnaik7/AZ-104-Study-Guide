@@ -1,77 +1,106 @@
-# AZ-104: Deploy and Manage Azure Compute Resources
+# Module 5: Deploy and Manage Azure Compute Resources
 
-This document explains the "engine room" of Azure—the services that actually run your applications and code.
-
-It is written in plain language to give you a clear, first-principles understanding.
+Compute is where your actual applications run. The AZ-104 exam requires you to know how to provision Virtual Machines, how to make them highly available, and when to use PaaS (App Services) or Container alternatives instead of IaaS (VMs).
 
 ---
 
-## 📘 Table of Contents
+## 1. Virtual Machine High Availability
 
-- [🖥 Virtual Machines (VMs)](#-virtual-machines-vms)
-- [⚖️ Availability Sets and VM Scale Sets](#️-availability-sets-and-vm-scale-sets)
-- [🌐 Azure App Service](#-azure-app-service)
-- [🐳 Containers (ACI and AKS)](#-containers-aci-and-aks)
-- [🧠 Quick Summary](#-quick-summary)
+If you deploy a single Virtual Machine, it has a 99.9% SLA. If the physical server rack it sits on needs a hardware reboot, your VM goes down. To achieve higher uptime (99.95% or 99.99%), you must deploy multiple VMs and group them.
 
----
+### Availability Sets (SLA: 99.95%)
+An Availability Set is a logical grouping of VMs *within the same datacenter*. It protects against hardware failures and planned maintenance.
 
-## 🖥 Virtual Machines (VMs)
+```mermaid
+graph TD
+    subgraph Availability Set [Availability Set: WebServers]
+        subgraph Fault Domain 0 [Fault Domain 0: Rack 1]
+            UD0[Update Domain 0: VM 1]
+            UD2[Update Domain 2: VM 3]
+        end
+        subgraph Fault Domain 1 [Fault Domain 1: Rack 2]
+            UD1[Update Domain 1: VM 2]
+            UD3[Update Domain 3: VM 4]
+        end
+    end
+    
+    style Availability Set fill:#f5f5f5,stroke:#333
+    style Fault Domain 0 fill:#ffebee,stroke:#c62828
+    style Fault Domain 1 fill:#e8f5e9,stroke:#2e7d32
+```
 
-A Virtual Machine (VM) is a computer running in the cloud. It acts exactly like a physical laptop or server.
-
-You use VMs when you need full control over the operating system (Windows or Linux).
-- You choose the "size" (how much memory and CPU power it has).
-- You attach virtual hard disks to it.
-- You are responsible for installing updates, antivirus protection, and software.
-
----
-
-## ⚖️ Availability Sets and VM Scale Sets
-
-Servers can fail. You need systems to keep your apps running if a server dies.
-
-### Availability Sets
-This makes sure your VMs are not sharing the same power supply or network switch inside the Microsoft data center. 
-- If you have two web servers, put them in an Availability Set. 
-- If a rack of servers loses power, only one of your VMs goes down. The other stays up.
+- **Fault Domains (FD):** Think of these as physical server racks. They share a common power source and network switch. If Rack 1 loses power, Rack 2 stays up.
+- **Update Domains (UD):** Think of these as reboot groups. When Microsoft pushes a mandatory hypervisor patch, they reboot UD0, wait for it to recover, then reboot UD1. This ensures your app is never fully offline during maintenance.
 
 ### Virtual Machine Scale Sets (VMSS)
-This allows you to create and manage a group of identical, load-balanced VMs.
-- It can automatically add more VMs when your website gets busy (scaling out).
-- It can automatically remove VMs when things quiet down, saving you money (scaling in).
+While Availability Sets provide fault tolerance for a *fixed* number of VMs, VMSS provides **Autoscaling**. 
+- You provide a "base image".
+- You create rules (e.g., "If CPU > 75% for 10 minutes, add 2 VMs. If CPU < 25%, remove 1 VM").
+- Azure automatically provisions and deletes identical VMs behind a Load Balancer to match traffic demand.
+
+> [!WARNING]
+> **Exam Gotcha:** If the exam asks how to deploy identical VMs that automatically increase in number based on metric demands, the answer is **VMSS**. If it asks how to protect two manually configured SQL servers from a rack failure, the answer is an **Availability Set**.
 
 ---
 
-## 🌐 Azure App Service
+## 2. Azure App Service (PaaS)
 
-Azure App Service is a Platform as a Service (PaaS). 
+You don't always need to manage the underlying OS. Azure App Service allows you to deploy your application code (C#, Python, Node.js) directly to the cloud. Microsoft handles the Windows/Linux servers underneath.
 
-Instead of building a VM and installing a web server on it yourself, you just give your application code to Azure, and Azure runs it for you.
-- You do not worry about the underlying operating system.
-- It is much faster and easier for web developers to use.
-- It scales up and down very easily.
-
----
-
-## 🐳 Containers (ACI and AKS)
-
-Containers are a modern way to package software. They bundle your app and all its dependencies into one small container.
-
-It guarantees the app will run the same way on your laptop as it does in the cloud.
-
-### Azure Container Instances (ACI)
-The fastest and simplest way to run a container in Azure. You just upload the container and press start. Great for simple jobs.
-
-### Azure Kubernetes Service (AKS)
-A powerful system for running hundreds or thousands of containers at once. It manages scaling, health checks, and networking for massive applications.
+### App Service Plans
+An App Service Plan is the virtual hardware you are renting. It defines the Region, OS, and Pricing Tier.
+- **Multiple Apps:** You can run multiple web apps on a single App Service Plan. They all share the same CPU and RAM.
+- **Deployment Slots:** Available in Standard tiers and above. Allows you to deploy code to a "Staging" slot, test it, and then instantly swap it with the "Production" slot with zero downtime.
 
 ---
 
-## 🧠 Quick Summary
+## 3. Containers (ACI vs. AKS)
 
-- **Virtual Machine (VM)** = A full computer in the cloud. You manage the operating system.
-- **Availability Sets** = Splitting your VMs across different hardware racks to avoid failures.
-- **VM Scale Sets (VMSS)** = Automatically adding or removing identical VMs based on demand.
-- **App Service** = A fully managed platform to host websites without worrying about servers.
-- **Containers (ACI / AKS)** = Packaging apps neatly so they run consistently anywhere.
+Containers package an application and its dependencies into a single, portable unit (Docker). 
+
+1. **Azure Container Instances (ACI):** The fastest, simplest way to run a container in Azure. You do not manage any virtual machines. It is billed per second. Perfect for short-lived batch jobs or simple apps.
+2. **Azure Kubernetes Service (AKS):** A massive, enterprise-grade container orchestration system. You manage the "Worker Nodes" (the VMs that run the containers), while Azure manages the "Control Plane" for free. Perfect for massive, scalable microservice architectures.
+
+> [!IMPORTANT]
+> **Exam Gotcha:** If the scenario requires running a simple containerized python script that executes once a day for 5 minutes and needs to be as cheap as possible with zero management overhead, choose **ACI**. If it requires complex auto-scaling of 50 microservices, choose **AKS**.
+
+---
+
+## 4. Custom Script Extensions
+
+How do you install software on a VM immediately after it is created, without manually logging in via RDP or SSH?
+- You use a **Virtual Machine Extension**.
+- The **Custom Script Extension** automatically downloads and runs scripts (PowerShell or Bash) against the VM OS during the provisioning phase.
+
+---
+
+## 5. Portal Walkthrough: "Where to Click"
+
+* **To configure VMSS Autoscale Rules:**
+  * Navigate to the Virtual Machine Scale Set -> Click `Scaling` on the left menu -> Select `Custom autoscale` -> Click `+ Add a rule` -> Define the metric (e.g., CPU Percentage) and the action (Increase count by 1).
+* **To create an App Service Deployment Slot:**
+  * Navigate to the App Service -> Click `Deployment slots` -> Click `+ Add Slot` -> Give it a name (e.g., "staging") and choose whether to clone settings from production.
+* **To inject a script via Custom Script Extension:**
+  * Navigate to the VM -> Click `Extensions + applications` -> Click `+ Add` -> Select `Custom Script Extension` -> Upload your `.ps1` or `.sh` script file.
+
+---
+
+## 6. CLI & PowerShell Cheatsheet
+
+### PowerShell
+```powershell
+# Create a new Virtual Machine
+New-AzVm -ResourceGroupName "MyRG" -Name "MyVM" -Location "EastUS" -Image "Win2022Datacenter" -Size "Standard_DS1_v2"
+
+# Restart a VM
+Restart-AzVM -ResourceGroupName "MyRG" -Name "MyVM"
+```
+
+### Azure CLI
+```bash
+# Create a new Virtual Machine Scale Set with 2 initial instances
+az vmss create --resource-group "MyRG" --name "MyScaleSet" --image "Ubuntu2204" --upgrade-policy-mode automatic --instance-count 2
+
+# Create an Azure Container Instance
+az container create --resource-group "MyRG" --name "mycontainer" --image "mcr.microsoft.com/azuredocs/aci-helloworld" --dns-name-label "aci-demo-123" --ports 80
+```
