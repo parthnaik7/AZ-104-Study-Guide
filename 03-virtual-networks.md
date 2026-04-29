@@ -60,7 +60,7 @@ If you block these via Network Security Groups (NSGs) or Firewalls, Azure infras
 | **`/27`** | 27 | `GatewaySubnet` (Recommended minimum). |
 | **`/26`** | 59 | `AzureBastionSubnet` (Required min) / `AzureFirewallSubnet` (Required min). |
 | **`/24`** | 251 | Standard go-to for most production workloads and App Gateway v2. |
-| **`/22` to `/20`** | ~1,000 to ~4,000 | AKS (Kubernetes) – Pods consume IPs very rapidly. |
+| **`/22` to `/20`** | ~1,000 to ~4,000 | AKS (Kubernetes) - Pods consume IPs very rapidly. |
 | **`/16`** | 65,531 | Typically used for the entire VNet address space block. |
 
 > [!IMPORTANT]
@@ -138,23 +138,23 @@ By default, Azure PaaS services (like Storage Accounts or SQL Databases) sit on 
 
 | Service | Definition | Purpose / Working | Best Practices |
 | :--- | :--- | :--- | :--- |
-| **Virtual Network (VNet)** | A private, isolated network in Azure. | Defines IP address space, subnets, and connectivity boundaries for resources. | Use CIDR blocks that don’t overlap with on‑prem networks; segment workloads by subnet. |
+| **Virtual Network (VNet)** | A private, isolated network in Azure. | Defines IP address space, subnets, and connectivity boundaries for resources. | Use CIDR blocks that don’t overlap with on-prem networks; segment workloads by subnet. |
 | **Subnet** | Logical partition of a VNet. | Groups resources for isolation and policy enforcement. | Assign NSGs per subnet; reserve space for future growth; avoid overly large subnets. |
 | **Network Interface (NIC)** | Connects a VM to a subnet. | Each NIC gets a private IP and optional public IP. | Use static private IPs for servers; disable public IPs unless required. |
-| **Network Security Group (NSG)** | Stateful L3/L4 firewall. | Enforces allow/deny rules for inbound/outbound traffic. | Apply least‑privilege rules; use service tags (e.g., AzureLoadBalancer) instead of IPs. |
+| **Network Security Group (NSG)** | Stateful L3/L4 firewall. | Enforces allow/deny rules for inbound/outbound traffic. | Apply least-privilege rules; use service tags (e.g., AzureLoadBalancer) instead of IPs. |
 | **Application Security Group (ASG)** | Logical grouping of VMs/NICs. | Used inside NSG rules to simplify targeting by role (Web, App, DB). | Group by function, not environment; avoid mixing tiers in one ASG. |
 | **Route Table (UDR)** | Custom routing configuration. | Overrides default system routes for traffic control. | Use UDRs for NVA/firewall routing; avoid circular routes; document all custom routes. |
-| **Azure Firewall** | Managed, scalable L4–L7 firewall. | Centralized traffic inspection, NAT, and logging. | Deploy in a dedicated subnet; use with forced tunneling; enable diagnostics. |
-| **Load Balancer** | Distributes traffic across VMs. | Operates at L4 (TCP/UDP); supports inbound/outbound NAT. | Use Standard SKU; combine with NSGs; health probe every 5–10 s. |
-| **Application Gateway** | L7 load balancer with WAF. | Handles HTTP/HTTPS, SSL termination, and path‑based routing. | Enable WAF; use autoscaling; integrate with Front Door for global reach. |
+| **Azure Firewall** | Managed, scalable L4-L7 firewall. | Centralized traffic inspection, NAT, and logging. | Deploy in a dedicated subnet; use with forced tunneling; enable diagnostics. |
+| **Load Balancer** | Distributes traffic across VMs. | Operates at L4 (TCP/UDP); supports inbound/outbound NAT. | Use Standard SKU; combine with NSGs; health probe every 5-10 s. |
+| **Application Gateway** | L7 load balancer with WAF. | Handles HTTP/HTTPS, SSL termination, and path-based routing. | Enable WAF; use autoscaling; integrate with Front Door for global reach. |
 | **Private Endpoint** | Private IP access to PaaS services. | Connects services like Storage or SQL via private IP. | Disable public access; use DNS zone integration; monitor with NSG flow logs. |
-| **VPN Gateway** | Secure tunnel between Azure and on‑prem. | Uses IPsec/IKE for encrypted connectivity. | Use active‑active for HA; match MTU settings; monitor latency. |
+| **VPN Gateway** | Secure tunnel between Azure and on-prem. | Uses IPsec/IKE for encrypted connectivity. | Use active-active for HA; match MTU settings; monitor latency. |
 | **ExpressRoute** | Dedicated private circuit to Azure. | Bypasses Internet for predictable performance. | Use redundant circuits; integrate with Virtual WAN; plan QoS. |
-| **Virtual WAN** | Global hub‑and‑spoke network service. | Centralizes connectivity, routing, and security. | Use for multi‑region or hybrid setups; pair with Azure Firewall Manager. |
+| **Virtual WAN** | Global hub-and-spoke network service. | Centralizes connectivity, routing, and security. | Use for multi-region or hybrid setups; pair with Azure Firewall Manager. |
 
 ---
 
-## 6. 🔄 End‑to‑End Traffic Flow (Typical 3‑Tier Architecture)
+## 6. 🔄 End-to-End Traffic Flow (Typical 3-Tier Architecture)
 
 1. **Internet → Azure Firewall**
    - Firewall inspects and filters inbound traffic.
@@ -233,13 +233,13 @@ graph TD
 ## 7. 🧠 Best Practices Summary
 
 - **Design for least privilege:** Deny all by default; explicitly allow required ports.
-- **Use ASGs for scalability:** Avoid hard‑coding IPs in NSG rules.
-- **Centralize security:** Use Azure Firewall or NVA in a hub‑and‑spoke model.
+- **Use ASGs for scalability:** Avoid hard-coding IPs in NSG rules.
+- **Centralize security:** Use Azure Firewall or NVA in a hub-and-spoke model.
 - **Monitor everything:** Enable NSG flow logs, diagnostic settings, and Azure Monitor alerts.
 - **Separate tiers by subnet:** Web, App, and DB should each have their own subnet and NSG.
-- **Use Standard SKUs:** For Load Balancer and Public IPs — they support zone redundancy.
-- **Automate with ARM/Bicep:** Keep network configuration version‑controlled.
-- **Plan IP space early:** Avoid overlapping CIDRs with on‑prem or other VNets.
+- **Use Standard SKUs:** For Load Balancer and Public IPs - they support zone redundancy.
+- **Automate with ARM/Bicep:** Keep network configuration version-controlled.
+- **Plan IP space early:** Avoid overlapping CIDRs with on-prem or other VNets.
 - **Integrate with Defender for Cloud:** For continuous compliance and threat detection.
 
 ---
@@ -249,7 +249,7 @@ graph TD
 **When you type a domain:**
 1. Your computer asks a **recursive resolver** (usually your ISP or a public DNS like `8.8.8.8`).
 2. The resolver queries **authoritative name servers** for that domain.
-3. Those servers return records — each record type defines what kind of information is being returned.
+3. Those servers return records - each record type defines what kind of information is being returned.
 4. The resolver caches the result and sends the IP back to your browser.
 
 *Each record type is a data structure describing a specific mapping or instruction.*
@@ -258,7 +258,7 @@ graph TD
 
 | Type | Purpose | How It Works (First Principles) | Example |
 | :--- | :--- | :--- | :--- |
-| **A (Address)** | Maps a domain to an IPv4 address. | The most fundamental record — it’s the “phone number” of the domain. When a resolver asks for `example.com`, the A record returns `93.184.216.34`. | `example.com → 93.184.216.34` |
+| **A (Address)** | Maps a domain to an IPv4 address. | The most fundamental record - it’s the “phone number” of the domain. When a resolver asks for `example.com`, the A record returns `93.184.216.34`. | `example.com → 93.184.216.34` |
 | **AAAA (IPv6 Address)** | Same as A, but for IPv6. | Enables modern addressing with 128-bit IPs. | `example.com → 2606:2800:220:1:248:1893:25c8:1946` |
 | **CNAME (Canonical Name)** | Alias one domain to another. | Instead of storing an IP, it points to another domain that has an A record. Used for load balancing or branding. | `www.example.com → example.com` |
 | **MX (Mail Exchange)** | Defines mail servers for a domain. | Tells email systems where to deliver mail. Each MX record has a priority (lower = higher priority). | `example.com → mail1.example.com (priority 10)` |
@@ -303,13 +303,13 @@ Each record type contributes a piece of the puzzle:
 
 ### 🧩 DNS Best Practices
 
-- **Use TTL wisely** — short (300 s) for dynamic IPs, long (86400 s) for stable zones.
-- **Always define SOA and NS records** — they’re mandatory for zone integrity.
-- **Use CAA** — prevents rogue SSL certificates.
-- **Implement SPF + DKIM + DMARC** — essential for email reputation.
-- **Avoid excessive CNAME chains** — they slow resolution.
-- **Monitor DNS changes** — use serial numbers in SOA for version tracking.
-- **Use Wildcards sparingly** — they can unintentionally expose subdomains.
+- **Use TTL wisely** - short (300 s) for dynamic IPs, long (86400 s) for stable zones.
+- **Always define SOA and NS records** - they’re mandatory for zone integrity.
+- **Use CAA** - prevents rogue SSL certificates.
+- **Implement SPF + DKIM + DMARC** - essential for email reputation.
+- **Avoid excessive CNAME chains** - they slow resolution.
+- **Monitor DNS changes** - use serial numbers in SOA for version tracking.
+- **Use Wildcards sparingly** - they can unintentionally expose subdomains.
 
 ---
 
