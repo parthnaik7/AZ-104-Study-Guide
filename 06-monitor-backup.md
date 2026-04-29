@@ -131,7 +131,7 @@ Azure Backup is a centralized service to back up data to a **Recovery Services V
 | | Recovery Services Vault | Backup Vault |
 | :--- | :--- | :--- |
 | **Supports** | Azure VMs, SQL in VMs, MARS, MABS, Azure Files | Azure Disks, Azure Blobs, AKS, PostgreSQL |
-| **Site Recovery** | YES | NO |
+| **Site Recovery** | ✅ | ❌ |
 | **Redundancy options** | LRS or GRS | LRS or GRS |
 
 ---

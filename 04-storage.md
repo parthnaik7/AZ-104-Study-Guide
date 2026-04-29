@@ -56,12 +56,12 @@ graph TD
 
 | Option | Copies | Where | Datacenter Failure | Zone Failure | Region Failure | Cost |
 | :--- | :---: | :--- | :---: | :---: | :---: | :--- |
-| **LRS** (Locally Redundant) | 3 | Single datacenter | NO | NO | NO | Lowest |
-| **ZRS** (Zone Redundant) | 3 | 3 AZs, same region | YES | YES | NO | Medium |
-| **GRS** (Geo Redundant) | 6 | 3 local + 3 secondary region | YES | NO | YES | Higher |
-| **GZRS** (Geo-Zone Redundant) | 6 | 3 AZs primary + 3 secondary region | YES | YES | YES | Highest |
-| **RA-GRS** | 6 | Same as GRS + readable secondary | YES | NO | YES | Higher |
-| **RA-GZRS** | 6 | Same as GZRS + readable secondary | YES | YES | YES | Highest |
+| **LRS** (Locally Redundant) | 3 | Single datacenter | ❌ | NO | ❌ | Lowest |
+| **ZRS** (Zone Redundant) | 3 | 3 AZs, same region | ✅ | YES | ❌ | Medium |
+| **GRS** (Geo Redundant) | 6 | 3 local + 3 secondary region | ✅ | ❌ | ✅ | Higher |
+| **GZRS** (Geo-Zone Redundant) | 6 | 3 AZs primary + 3 secondary region | ✅ | YES | ✅ | Highest |
+| **RA-GRS** | 6 | Same as GRS + readable secondary | ✅ | ❌ | ✅ | Higher |
+| **RA-GZRS** | 6 | Same as GZRS + readable secondary | ✅ | YES | ✅ | Highest |
 
 > [!WARNING]
 > **Exam Gotcha:** Cheapest option that survives a **whole-region failure** = **GRS**. Survives a **datacenter failure** cost-effectively = **ZRS**. Need to **read from the secondary region** even before failover = **RA-GRS** or **RA-GZRS**.

@@ -22,14 +22,14 @@ Microsoft Entra ID is Azure's cloud-based Identity and Access Management (IAM) s
 
 | Feature | Free | P1 | P2 |
 | :--- | :---: | :---: | :---: |
-| Basic SSO (up to 10 apps) | YES | YES | YES |
-| MFA (via Security Defaults) | YES | YES | YES |
-| **Conditional Access Policies** | NO | YES | YES |
-| **SSPR with on-prem writeback** | NO | YES | YES |
-| **Group-based Licensing** | NO | YES | YES |
-| **Identity Protection (risk-based)** | NO | NO | YES |
-| **Privileged Identity Management (PIM)** | NO | NO | YES |
-| **Access Reviews** | NO | NO | YES |
+| Basic SSO (up to 10 apps) | ✅ | YES | ✅ |
+| MFA (via Security Defaults) | ✅ | YES | ✅ |
+| **Conditional Access Policies** | ❌ | ✅ | YES |
+| **SSPR with on-prem writeback** | ❌ | ✅ | YES |
+| **Group-based Licensing** | ❌ | ✅ | YES |
+| **Identity Protection (risk-based)** | ❌ | NO | ✅ |
+| **Privileged Identity Management (PIM)** | ❌ | NO | ✅ |
+| **Access Reviews** | ❌ | NO | ✅ |
 
 > [!WARNING]
 > **Exam Gotcha:** Enforcing MFA *only when users log in from unknown locations* requires **Conditional Access (Entra P1)**. Security Defaults apply MFA broadly to everyone and cannot be scoped.
@@ -59,9 +59,9 @@ graph LR
 
 | Method | Password Stored in Cloud? | On-Prem Server Required? | Resilience if On-Prem is Down |
 | :--- | :---: | :---: | :--- |
-| **Password Hash Sync (PHS)** | YES (hash only) | NO | Users can still log in |
-| **Pass-through Auth (PTA)** | NO | YES | Login fails |
-| **Federation (AD FS)** | NO | YES | Login fails |
+| **Password Hash Sync (PHS)** | YES (hash only) | ❌ | Users can still log in |
+| **Pass-through Auth (PTA)** | ❌ | ✅ | Login fails |
+| **Federation (AD FS)** | ❌ | ✅ | Login fails |
 
 > [!IMPORTANT]
 > **Exam Gotcha:** With PTA or AD FS, if on-premises servers go offline, cloud users **cannot log in**. PHS is more resilient because the hash is already in Entra ID.
@@ -96,10 +96,10 @@ graph TD
 
 | Role | Read | Create/Modify | Delete | Manage IAM Access |
 | :--- | :---: | :---: | :---: | :---: |
-| **Owner** | YES | YES | YES | YES |
-| **Contributor** | YES | YES | YES | NO |
-| **Reader** | YES | NO | NO | NO |
-| **User Access Administrator** | YES | NO | NO | YES |
+| **Owner** | ✅ | YES | ✅ | YES |
+| **Contributor** | ✅ | YES | ✅ | ❌ |
+| **Reader** | ✅ | ❌ | NO | ❌ |
+| **User Access Administrator** | ✅ | ❌ | NO | ✅ |
 
 > [!WARNING]
 > **Exam Gotcha:** A **Contributor** can create and modify resources but **cannot** grant access to others. Only **Owner** or **User Access Administrator** can manage role assignments.
