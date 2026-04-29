@@ -37,7 +37,17 @@ It’s designed to be a clean, readable reference for engineers learning Azure f
 
 ## 💯 Practice Exam
 
-- [AZ-104 100-Question Scenario Practice Exam](./PRACTICE-EXAM.md) 
+- [AZ-104 100-Question Scenario Practice Exam](./PRACTICE-EXAM.md)
+
+---
+
+## 🧪 Official Microsoft Lab Exercises
+
+Hands-on lab exercises from Microsoft Learn, aligned to the AZ-104 exam objectives:
+
+> 🔗 **[AZ-104 Microsoft Azure Administrator - Official Labs](https://microsoftlearning.github.io/AZ-104-MicrosoftAzureAdministrator/)**
+
+These labs complement this study guide with guided, practical exercises in a real Azure environment. Work through them alongside each module for maximum retention.
 
 ---
 
